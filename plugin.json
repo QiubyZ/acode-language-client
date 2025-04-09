@@ -5,7 +5,18 @@
 	"version": "1.0.5",
 	"readme": "readme.md",
 	"icon": "icon.png",
-	"contributors": ["7HR4IZ3, QiubyZ"],
+	"contributors": [
+		{
+			"name": "7HR4IZ3",
+			"github": "https://github.com/7HR4IZ3/acode-language-client",
+			"role": "main"
+		},
+		{
+			"name": "QiubyZ",
+			"github": "https://github.com/QiubyZ",
+			"role": "Dev"
+		}
+	],
 	"keywords": ["language server"],
 	"changelog": ["v 1.0.5 Organization Import (Beta)"],
 	"files": [],
