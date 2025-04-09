@@ -5,18 +5,16 @@
 	"version": "1.0.5",
 	"readme": "readme.md",
 	"icon": "icon.png",
-	"contributors": ["QiubyZ"],
-	"keywords":["language server"],
-	"changelog":[
-	    "v 1.0.5 Organization Import (Beta)"
-	    ],
+	"contributors": ["7HR4IZ3", "QiubyZ"],
+	"keywords": ["language server"],
+	"changelog": ["v 1.0.5 Organization Import (Beta)"],
 	"files": [],
 	"minVersionCode": 290,
 	"price": 0,
 	"author": {
-		"name": "Thraize",
-		"email": "gamerxville@gmail.com",
-		"github": "7HR4IZ3",
-		"url": "http://github.com/7HR4IZ3/acode-language-client"
+		"name": "QiubyZ",
+		"email": "qzhukhi@gmail.com",
+		"github": "QiubyZ",
+		"url": "https://github.com/QiubyZ/acode-language-client"
 	}
 }
