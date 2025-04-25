@@ -12,6 +12,7 @@ import { fromPoint, fromRange, toRange } from "./ace-linters/src/type-converters
 import { BaseService } from "./ace-linters/src/services/base-service";
 import { LanguageClient } from "./ace-linters/src/services/language-client.ts";
 import { LSPUniversalHandler } from "./ResolveEdit.js";
+import { AceLanguageClient } from "ace-linters/build/ace-language-client";
 /**
  * @typedef {object} EditorManager
  * @property {import("ace-code").Ace.Editor} editor
@@ -19,7 +20,6 @@ import { LSPUniversalHandler } from "./ResolveEdit.js";
 
 /** @type {EditorManager} */
 let { editor } = editorManager;
-
 let defaultServices = {};
 var Range = ace.require("ace/range").Range;
 let commandId = "acodeLsExecuteCodeLens";
@@ -75,6 +75,7 @@ class CustomService extends BaseService {
 				}
 			}
 		}
+		
 		return allValidations;
 	}
 
@@ -210,8 +211,45 @@ export class AcodeLanguageServerPlugin {
 				),
 		});
 
+		// 		this.$manager.registerService("javascript", {
+		// 			features: {
+		// 				completion: true,
+		// 				completionResolve: true,
+		// 				diagnostics: true,
+		// 				format: true,
+		// 				hover: true,
+		// 				documentHighlight: true,
+		// 				signatureHelp: true,
+		// 			},
+		// 			module: () => import("./ace-linters/src/services/javascript/javascript-service.ts"),
+		// 			className: "JavascriptService",
+		// 			modes: "javascript",
+		// 		});
+		this.$manager.registerService("xml", {
+			features: {
+				completion: false,
+				completionResolve: false,
+				diagnostics: true,
+				format: false,
+				hover: false,
+				documentHighlight: true,
+				signatureHelp: false,
+			},
+			module: () => import("./ace-linters/src/services/xml/xml-service.ts"),
+			className: "XmlService",
+			modes: "xml",
+		});
+
 		this.$manager.registerService("html", {
-			features: { signatureHelp: false },
+			features: {
+				completion: true,
+				completionResolve: true,
+				diagnostics: true,
+				format: true,
+				hover: true,
+				documentHighlight: true,
+				signatureHelp: true,
+			},
 			rootUri: () => this.#getRootUri(),
 			className: "HtmlService",
 			modes: "html",
@@ -220,7 +258,15 @@ export class AcodeLanguageServerPlugin {
 		});
 
 		this.$manager.registerService("css", {
-			features: { signatureHelp: false },
+			features: {
+				completion: true,
+				completionResolve: true,
+				diagnostics: true,
+				format: true,
+				hover: true,
+				documentHighlight: true,
+				signatureHelp: true,
+			},
 			module: () => import("./ace-linters/src/services/css/css-service.ts"),
 			className: "CssService",
 			modes: "css",
@@ -451,7 +497,6 @@ export class AcodeLanguageServerPlugin {
 				detail.lsp.serviceData.options?.alias || detail.lsp.serviceData.modes.split("|")[0];
 
 			if (!detail.params.serverInfo) return;
-
 			this.$serverInfos.set(mode, detail.params.serverInfo);
 			this.#setServerInfo(detail.params.serverInfo);
 		});
@@ -471,8 +516,7 @@ export class AcodeLanguageServerPlugin {
 			if (serverInfo) {
 				this.#setServerInfo(serverInfo);
 			} else {
-				let node = this.$footer.querySelector(".server-info");
-				node.style.display = "none";
+				this.#setServerInfo({ name: "LSP UNKNOWN", version: "VERSION: UNKNWON" });
 			}
 		});
 
@@ -798,6 +842,7 @@ export class AcodeLanguageServerPlugin {
 			};
 
 			editor.on("change", this.$func);
+
 			editorManager.on("switch-file", async () =>
 				setTimeout(this.$buildBreadcrumbs.bind(this), this.settings.breadcrumbTimeout),
 			);
@@ -880,10 +925,8 @@ export class AcodeLanguageServerPlugin {
 
 	#setupFooter() {
 		let footer = document.querySelector("#root footer");
-
 		this.$footer = footer.appendChild(
 			tag("div", {
-				className: "button-container",
 				style: {
 					display: "flex",
 					flexDirection: "row",
@@ -891,7 +934,7 @@ export class AcodeLanguageServerPlugin {
 					alignItems: "center",
 				},
 				children: [
-					tag("span", {
+					tag("div", {
 						className: "server-info",
 					}),
 				],
@@ -1165,8 +1208,8 @@ export class AcodeLanguageServerPlugin {
 									.sendRequest("codeAction/resolve", actions[action])
 									.then((resolved) => {
 										console.log("Resolved:", resolved);
-										let ResponHandle = new LSPUniversalHandler(editorManager)
-										ResponHandle.processLSPResponse(resolved)
+										let ResponHandle = new LSPUniversalHandler(editorManager);
+										ResponHandle.processLSPResponse(resolved);
 										//this.applyText(resolved.edit);
 									});
 							}
@@ -1175,45 +1218,6 @@ export class AcodeLanguageServerPlugin {
 			}
 		});
 	}
-
-	// 	JavapplyText(edit) {
-	// 		//for Java
-	// 		const session = editorManager.editor.getSession();
-	// 		for (const [uri, changes] of Object.entries(edit.changes)) {
-	// 			changes.forEach((change) => {
-	// 				const { range, newText } = change;
-	// 				const startPos = { row: range.start.line, column: range.start.character };
-	// 				const endPos = { row: range.end.line, column: range.end.character };
-	// 				session.replace(
-	// 					{
-	// 						start: startPos,
-	// 						end: endPos,
-	// 					},
-	// 					newText,
-	// 				);
-	// 			});
-	// 		}
-
-	// 	}
-	// 	GolangapplyText(edit) {
-	// 		const session = editorManager.editor.getSession();
-	// 		edit.documentChanges.forEach((documentChange) => {
-	// 			const uri = documentChange.textDocument.uri; // URI file
-	// 			const changes = documentChange.edits;
-	// 			changes.forEach((change) => {
-	// 				const { range, newText } = change;
-	// 				const startPos = { row: range.start.line, column: range.start.character };
-	// 				const endPos = { row: range.end.line, column: range.end.character };
-	// 				session.replace(
-	// 					{
-	// 						start: startPos,
-	// 						end: endPos,
-	// 					},
-	// 					newText,
-	// 				);
-	// 			});
-	// 		});
-	// 	}
 
 	async #renameSymbol() {
 		let services = this.#filterService((capabilities) => capabilities.renameProvider).map(
@@ -1283,7 +1287,6 @@ export class AcodeLanguageServerPlugin {
 
 	async $buildBreadcrumbs() {
 		let symbols = await this.getDocumentSymbols();
-
 		if (!symbols?.length) {
 			this.$breadcrumbsNode.style.display = "none";
 		} else if (symbols !== this.$currentSymbols) {
@@ -1499,6 +1502,9 @@ export class AcodeLanguageServerPlugin {
 			closeTimeout: 60 * 3,
 			breadcrumbTimeout: 1000,
 			url: "ws://localhost:3030/",
+			options: {
+				global: {},
+			},
 		};
 	}
 
