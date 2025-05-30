@@ -13,6 +13,7 @@
     "@xml-tools/parser": "^1.0.11",
     "@xml-tools/simple-schema": "^3.0.5",
     "ace-code": "^1.32.3",
+    "ace-linters": "^1.6.0",
     "acorn": "^8.11.3",
     "express": "^4.18.2",
     "express-ws": "^5.0.2",
