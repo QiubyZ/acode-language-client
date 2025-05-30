@@ -1,4 +1,4 @@
-import { ServiceManager } from "ace-linters/build/services/service-manager";
+import { ServiceManager } from "ace-linters/build/service-manager";
 
 let configPromises = {};
 let requestIdCounter = 0;
@@ -35,7 +35,7 @@ const manager = new ServiceManager(self);
 //         documentHighlight: true,
 //         signatureHelp: true,
 //     },
-//     module: () => import("ace-linters/build/services/javascript/javascript-service"),
+//     module: () => import("ace-linters/build/javascript-service"),
 //     className: "JavascriptService",
 //     modes: "javascript",
 //     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -52,7 +52,7 @@ manager.registerService("xml", {
         documentHighlight: true,
         signatureHelp: false,
     },
-    module: () => import("ace-linters/build/services/xml/xml-service"),
+    module: () => import("ace-linters/build/xml-service"),
     className: "XmlService",
     modes: "xml",
     // XML service might not need rootUri or workspaceFolders
@@ -68,7 +68,7 @@ manager.registerService("html", {
         documentHighlight: true,
         signatureHelp: true,
     },
-    module: () => import("ace-linters/build/services/html/html-service"),
+    module: () => import("ace-linters/build/html-service"),
     className: "HtmlService",
     modes: "html",
     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -85,7 +85,7 @@ manager.registerService("css", {
         documentHighlight: true,
         signatureHelp: true,
     },
-    module: () => import("ace-linters/build/services/css/css-service"),
+    module: () => import("ace-linters/build/css-service"),
     className: "CssService",
     modes: "css",
     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -94,7 +94,7 @@ manager.registerService("css", {
 
 manager.registerService("less", {
     features: { signatureHelp: false },
-    module: () => import("ace-linters/build/services/css/css-service"),
+    module: () => import("ace-linters/build/css-service"),
     className: "CssService",
     modes: "less",
     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -103,7 +103,7 @@ manager.registerService("less", {
 
 manager.registerService("scss", {
     features: { signatureHelp: false },
-    module: () => import("ace-linters/build/services/css/css-service"),
+    module: () => import("ace-linters/build/css-service"),
     className: "CssService",
     modes: "scss",
     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -112,7 +112,7 @@ manager.registerService("scss", {
 
 manager.registerService("json", {
     features: { signatureHelp: false, documentHighlight: false },
-    module: () => import("ace-linters/build/services/json/json-service"),
+    module: () => import("ace-linters/build/json-service"),
     className: "JsonService",
     modes: "json",
     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -121,7 +121,7 @@ manager.registerService("json", {
 
 manager.registerService("json5", {
     features: { signatureHelp: false, documentHighlight: false },
-    module: () => import("ace-linters/build/services/json/json-service"),
+    module: () => import("ace-linters/build/json-service"),
     className: "JsonService",
     modes: "json5",
     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -130,7 +130,7 @@ manager.registerService("json5", {
 
 manager.registerService("yaml", {
     features: { signatureHelp: false, documentHighlight: false },
-    module: () => import("ace-linters/build/services/yaml/yaml-service"),
+    module: () => import("ace-linters/build/yaml-service"),
     className: "YamlService",
     modes: "yaml",
     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -139,7 +139,7 @@ manager.registerService("yaml", {
 
 manager.registerService("lua", {
     features: { signatureHelp: false, documentHighlight: false },
-    module: () => import("ace-linters/build/services/lua/lua-service"),
+    module: () => import("ace-linters/build/lua-service"),
     className: "LuaService",
     modes: "lua",
     rootUri: async () => await getConfigFromMain('getRootUri'),
@@ -148,7 +148,7 @@ manager.registerService("lua", {
 
 manager.registerService("php", {
     features: { signatureHelp: false, documentHighlight: false },
-    module: () => import("ace-linters/build/services/php/php-service"),
+    module: () => import("ace-linters/build/php-service"),
     className: "PhpService",
     modes: "php",
     rootUri: async () => await getConfigFromMain('getRootUri'),

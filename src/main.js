@@ -9,8 +9,7 @@ import {
 
 import * as converters from "ace-linters/build/type-converters/lsp-converters";
 import { fromPoint, fromRange, toRange } from "ace-linters/build/type-converters/lsp-converters";
-import { BaseService } from "ace-linters/build/services/base-service";
-import { LanguageClient } from "ace-linters/build/services/language-client";
+import { BaseService } from "ace-linters/build/base-service";
 import { LSPUniversalHandler } from "./ResolveEdit.js";
 import { AceLanguageClient } from "ace-linters/build/ace-language-client";
 /**
