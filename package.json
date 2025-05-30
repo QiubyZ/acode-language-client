@@ -50,10 +50,10 @@
     "webpack-cli": "^5.0.0"
   },
   "scripts": {
-    "build": "clear && webpack",
-    "watch": "clear && webpack --watch",
-    "build-release": "clear && webpack --mode production",
-    "start-dev": "clear && node .vscode/start-dev"
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "build-release": "webpack --mode production",
+    "start-dev": "node .vscode/start-dev"
   },
   "browserslist": [
     "> 0.25%, not dead"
