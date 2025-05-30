@@ -7,10 +7,10 @@ import {
 	getCodeLens,
 } from "./utils.js";
 
-import * as converters from "./ace-linters/src/type-converters/lsp-converters";
-import { fromPoint, fromRange, toRange } from "./ace-linters/src/type-converters/lsp-converters";
-import { BaseService } from "./ace-linters/src/services/base-service";
-import { LanguageClient } from "./ace-linters/src/services/language-client.ts";
+import * as converters from "ace-linters/build/type-converters/lsp-converters";
+import { fromPoint, fromRange, toRange } from "ace-linters/build/type-converters/lsp-converters";
+import { BaseService } from "ace-linters/build/services/base-service";
+import { LanguageClient } from "ace-linters/build/services/language-client";
 import { LSPUniversalHandler } from "./ResolveEdit.js";
 import { AceLanguageClient } from "ace-linters/build/ace-language-client";
 /**
@@ -181,8 +181,8 @@ export class AcodeLanguageServerPlugin {
 	}
 
 	async setup() {
-		const { ServiceManager } = await import("./ace-linters/src/services/service-manager.ts");
-		const { LanguageProvider } = await import("./ace-linters/src/language-provider.ts");
+		// ServiceManager is now in lsp-worker.js (local import removed)
+		const { LanguageProvider } = await import("ace-linters/build/ace-linters"); // Updated path
 
 		this.$options = {
 			functionality: {

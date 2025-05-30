@@ -5,3 +5,4 @@ dist
 server
 *.rar
 stickScroll.js
+src/ace-linters/

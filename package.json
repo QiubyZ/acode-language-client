@@ -7,6 +7,7 @@
   "author": "Ajit <me@ajitkumar.dev>",
   "license": "MIT",
   "dependencies": {
+    "ace-linters": "^1.6.0",
     "@types/ace": "^0.0.52",
     "@xml-tools/ast": "^5.0.5",
     "@xml-tools/constraints": "^1.1.1",
