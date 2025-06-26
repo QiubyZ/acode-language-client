@@ -12,7 +12,8 @@ import { fromPoint, fromRange, toRange } from "./ace-linters/src/type-converters
 import { BaseService } from "./ace-linters/src/services/base-service";
 import { LanguageClient } from "./ace-linters/src/services/language-client.ts";
 import { LSPUniversalHandler } from "./ResolveEdit.js";
-import { AceLanguageClient } from "ace-linters/build/ace-language-client";
+//import { AceLanguageClient } from "ace-linters/build/ace-language-client";
+
 /**
  * @typedef {object} EditorManager
  * @property {import("ace-code").Ace.Editor} editor
@@ -75,7 +76,7 @@ class CustomService extends BaseService {
 				}
 			}
 		}
-		
+
 		return allValidations;
 	}
 
@@ -225,6 +226,12 @@ export class AcodeLanguageServerPlugin {
 		// 			className: "JavascriptService",
 		// 			modes: "javascript",
 		// 		});
+		this.$manager.registerService("typescript", {
+			module: () => import("ace-linters/build/typescript-service"),
+			className: "TypescriptService",
+			modes: "typescript|javascript|tsx",
+		});
+
 		this.$manager.registerService("xml", {
 			features: {
 				completion: false,

@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { Ace } from "ace-code";
 import { BaseMessage } from "./message-types";
 import { IMessageController } from "./types/message-controller-interface";
